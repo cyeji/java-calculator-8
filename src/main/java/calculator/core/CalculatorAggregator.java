@@ -15,7 +15,11 @@ public class CalculatorAggregator {
         int sum = 0;
         for (String token : tokens) {
             if (!token.isEmpty()) {
-                sum += Integer.parseInt(token);
+                int number = Integer.parseInt(token);
+                if (number < 0) {
+                    throw new IllegalArgumentException();
+                }
+                sum += number;
             }
         }
         return sum;

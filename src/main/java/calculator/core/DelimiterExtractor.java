@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class DelimiterExtractor {
 
     private static final Pattern CUSTOM_DELIMITER_REGEX = Pattern.compile("//(.)\\\\n(.*)");
+    private static final String DEFAULT_DELIMITER = ",|:";
 
     public DelimiterExtractor() {
     }
@@ -16,15 +17,16 @@ public class DelimiterExtractor {
     /**
      * 입력값 추출
      *
-     * @param input 입력값
-     * @return
+     * @param input 입력 문자열 (예: "//;\n1;2,3:4")
+     * @return 구문 분석 결과를 담은 {@link ParseResult} 객체
      */
     public ParseResult extract(String input) {
 
         Matcher matcher = CUSTOM_DELIMITER_REGEX.matcher(input);
 
         if (matcher.find()) {
-            String delimiter = Pattern.quote(matcher.group(1));
+            String customDelimiter = Pattern.quote(matcher.group(1));
+            String delimiter = DEFAULT_DELIMITER + "|" + customDelimiter;
             String numbers = matcher.group(2);
             return new ParseResult(numbers, delimiter);
         }
@@ -33,8 +35,8 @@ public class DelimiterExtractor {
     }
 
     public static class ParseResult {
-        private String normalizedInput = "";
-        private String customDelimiter = "[,:]";
+        private final String normalizedInput;
+        private final String customDelimiter;
 
         public ParseResult(String normalizedInput, String customDelimiter) {
             this.normalizedInput = normalizedInput;
@@ -43,6 +45,7 @@ public class DelimiterExtractor {
 
         public ParseResult(String input) {
             this.normalizedInput = input;
+            this.customDelimiter = "[,:]";
         }
 
         public String getNormalizedInput() {

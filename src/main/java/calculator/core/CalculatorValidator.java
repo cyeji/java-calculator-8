@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
  */
 public class CalculatorValidator {
 
+    private static final Pattern CUSTOM_DELIMITER_PATTERN = Pattern.compile("//(.)\\\\n(.*)");
+    private static final String BASIC_INPUT_PATTERN = "^[0-9,:]+$";
+
     /**
      * 입력값 검증
      *
@@ -28,13 +31,10 @@ public class CalculatorValidator {
      * @param input 입력값
      */
     private void validateInputWithCustomDelimiter(String input) {
-        Matcher matcher = Pattern.compile("//(.)\\\\n(.*)").matcher(input);
-        if (matcher.find()) {
-            String delimiter = Pattern.quote(matcher.group(1));
-            String numbers = matcher.group(2);
-        } else {
+        Matcher matcher = CUSTOM_DELIMITER_PATTERN.matcher(input);
+        if (!matcher.find()) {
             throw new IllegalArgumentException();
-        }
+        } 
     }
 
     /**
@@ -43,10 +43,9 @@ public class CalculatorValidator {
      * @param input 입력값
      */
     void validateInputWithoutCustomDelimiter(String input) {
-        if (!input.matches("^[0-9,:]+$")) {
+        if (!input.matches(BASIC_INPUT_PATTERN)) {
             throw new IllegalArgumentException();
         }
-
     }
 
 }

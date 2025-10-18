@@ -9,9 +9,6 @@ import calculator.core.DelimiterExtractor;
  */
 public class Calculator {
 
-    Calculator() {
-    }
-
     private final CalculatorValidator calculatorValidator = new CalculatorValidator();
     private final DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
     private final CalculatorAggregator calculatorAggregator = new CalculatorAggregator();
