@@ -10,6 +10,34 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ApplicationTest extends NsTest {
 
+    // 과제 요구사항 예시 테스트
+    @Test
+    @DisplayName("과제 예시 - 쉼표 구분자 기본")
+    void 과제예시_쉼표_기본() {
+        assertSimpleTest(() -> {
+            run("1,2");
+            assertThat(output()).contains("결과 : 3");
+        });
+    }
+
+    @Test
+    @DisplayName("과제 예시 - 쉼표 구분자 여러 숫자")
+    void 과제예시_쉼표_여러숫자() {
+        assertSimpleTest(() -> {
+            run("1,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    @DisplayName("과제 예시 - 커스텀 구분자 세미콜론")
+    void 과제예시_커스텀_세미콜론() {
+        assertSimpleTest(() -> {
+            run("//;\\n1;2;3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
     @Test
     @DisplayName("커스텀 구분자 - 리터럴 \\n 형태도 인식")
     void 커스텀_구분자_사용() {

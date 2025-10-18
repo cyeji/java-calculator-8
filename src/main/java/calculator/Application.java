@@ -21,6 +21,4 @@ public class Application {
         int result = calculator.add(input);
         System.out.println("결과 : " + result);
     }
-
-
 }
