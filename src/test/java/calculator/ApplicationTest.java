@@ -75,7 +75,7 @@ class ApplicationTest extends NsTest {
 
     @Test
     @DisplayName("커스텀 연산자 외 다른 연산자 입력 가능")
-    void custom_() {
+    void 커스텀연산자_기본연산자_동시사용가능() {
         assertSimpleTest(() -> {
             run("//|\\n10|20,30");
             assertThat(output()).contains("결과 : 60");
