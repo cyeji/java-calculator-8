@@ -29,6 +29,15 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    @DisplayName("빈값 입력 - 빈값 입력 시 0 결과")
+    void 빈값입력() {
+        assertSimpleTest(() -> {
+            run("");
+            assertThat(output()).contains("결과 : 0");
+        });
+    }
+
+    @Test
     @DisplayName("허용되지 않은 문자 포함 시 예외")
     void 허용되지않은_문자_사용() {
         assertSimpleTest(() ->
@@ -80,6 +89,15 @@ class ApplicationTest extends NsTest {
             run("//|\\n10|20,30");
             assertThat(output()).contains("결과 : 60");
         });
+    }
+
+    @Test
+    @DisplayName("기본 구분자 외 다른 구분자 입력 시 오류")
+    void rl() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,2;3;4"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
     }
 
     @Override
