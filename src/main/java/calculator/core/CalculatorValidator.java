@@ -29,12 +29,9 @@ public class CalculatorValidator {
      */
     private void validateInputWithCustomDelimiter(String input) {
         Matcher matcher = Pattern.compile("//(.)\\\\n(.*)").matcher(input);
-        if (matcher.find()) {
-            String delimiter = Pattern.quote(matcher.group(1));
-            String numbers = matcher.group(2);
-        } else {
+        if (!matcher.find()) {
             throw new IllegalArgumentException();
-        }
+        } 
     }
 
     /**

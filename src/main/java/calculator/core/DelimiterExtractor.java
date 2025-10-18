@@ -36,7 +36,7 @@ public class DelimiterExtractor {
 
     public static class ParseResult {
         private final String normalizedInput;
-        private String customDelimiter = "[,:]";
+        private final String customDelimiter;
 
         public ParseResult(String normalizedInput, String customDelimiter) {
             this.normalizedInput = normalizedInput;
@@ -45,6 +45,7 @@ public class DelimiterExtractor {
 
         public ParseResult(String input) {
             this.normalizedInput = input;
+            this.customDelimiter = "[,:]";
         }
 
         public String getNormalizedInput() {
