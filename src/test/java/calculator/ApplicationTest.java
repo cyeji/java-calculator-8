@@ -47,12 +47,12 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    @DisplayName("커스텀 구분자 - 커스텀 구분자 여러개 등록 시 인식")
-    void 커스텀_구분자_다수_사용() {
-        assertSimpleTest(() -> {
-            run("//;\\n1");
-            assertThat(output()).contains("결과 : 1");
-        });
+    @DisplayName("커스텀 구분자 - 여러 문자 입력 시 예외")
+    void 커스텀_구분자_여러문자_예외() {
+        assertSimpleTest(() ->
+            assertThatThrownBy(() -> runException("//;;\\n1;2;3"))
+                .isInstanceOf(IllegalArgumentException.class)
+        );
     }
 
     @Test
@@ -93,7 +93,7 @@ class ApplicationTest extends NsTest {
 
     @Test
     @DisplayName("기본 구분자 외 다른 구분자 입력 시 오류")
-    void rl() {
+    void 다른_구분자_입력_시_오류() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1,2;3;4"))
                         .isInstanceOf(IllegalArgumentException.class)
