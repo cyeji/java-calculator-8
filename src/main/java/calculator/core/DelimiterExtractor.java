@@ -17,8 +17,8 @@ public class DelimiterExtractor {
     /**
      * 입력값 추출
      *
-     * @param input 입력값
-     * @return
+     * @param input 입력 문자열 (예: "//;\n1;2,3:4")
+     * @return 구문 분석 결과를 담은 {@link ParseResult} 객체
      */
     public ParseResult extract(String input) {
 
@@ -35,7 +35,7 @@ public class DelimiterExtractor {
     }
 
     public static class ParseResult {
-        private String normalizedInput = "";
+        private final String normalizedInput;
         private String customDelimiter = "[,:]";
 
         public ParseResult(String normalizedInput, String customDelimiter) {
