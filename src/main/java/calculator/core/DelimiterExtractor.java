@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class DelimiterExtractor {
 
     private static final Pattern CUSTOM_DELIMITER_REGEX = Pattern.compile("//(.)\\\\n(.*)");
+    private static final String DEFAULT_DELIMITER = ",|;";
 
     public DelimiterExtractor() {
     }
@@ -24,7 +25,8 @@ public class DelimiterExtractor {
         Matcher matcher = CUSTOM_DELIMITER_REGEX.matcher(input);
 
         if (matcher.find()) {
-            String delimiter = Pattern.quote(matcher.group(1));
+            String customDelimiter = Pattern.quote(matcher.group(1));
+            String delimiter = DEFAULT_DELIMITER + "|" + customDelimiter;
             String numbers = matcher.group(2);
             return new ParseResult(numbers, delimiter);
         }
